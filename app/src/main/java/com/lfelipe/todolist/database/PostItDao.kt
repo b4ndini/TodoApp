@@ -7,7 +7,7 @@ import com.lfelipe.todolist.model.PostIt
 interface PostItDao {
 
     @Query("SELECT * FROM postits")
-    fun getPostIts(): List<PostIt>
+    suspend fun getPostIts(): List<PostIt>
 
     @Delete
     suspend fun deletePostIt(post: PostIt)

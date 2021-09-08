@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">To Do List</string>
+    <string name="app_name">Post-it Notes App</string>
     <string name="todo_title">Lista de Tarefas</string>
     <string name="todo_add_task_button">Add task</string>
     <string name="add_todo_title">Adicionar Post It</string>
     <string name="save_button">Salvar</string>
+    <string name="empty_list_msg">Empty List</string>
 </resources>
