@@ -1,5 +1,6 @@
 package com.lfelipe.todolist.view.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +35,14 @@ class MainAdapter (
                 tvTitle.text = postit.title
                 tvDescription.text = postit.desc
                 tvDate.text = postit.date
+                postit.color?.let{ color ->
+                    cvContainer.setCardBackgroundColor(Color.parseColor(color))
+                    if(color == "#000000" || color == "#0000FF" || color == "#800080"){
+                        tvTitle.setTextColor(Color.parseColor("#FFFFFF"))
+                        tvDescription.setTextColor(Color.parseColor("#FFFFFF"))
+                        tvDate.setTextColor(Color.parseColor("#FFFFFF"))
+                    }
+                }
             }
         }
 

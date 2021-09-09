@@ -5,4 +5,5 @@
     <string name="add_todo_title">Adicionar Post It</string>
     <string name="save_button">Salvar</string>
     <string name="empty_list_msg">Empty List</string>
+    <string name="dropdown_menu_hint">Select color</string>
 </resources>
