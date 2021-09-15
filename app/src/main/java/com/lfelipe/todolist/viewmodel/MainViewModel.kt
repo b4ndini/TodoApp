@@ -9,23 +9,29 @@ import com.lfelipe.todolist.repository.MainRepository
 import kotlinx.coroutines.launch
 
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel(application: Application, private val repository: MainRepository) : AndroidViewModel(application) {
 
     var errorLiveData: MutableLiveData<List<PostIt>> = MutableLiveData()
     var postItLiveData: MutableLiveData<List<PostIt>> = MutableLiveData()
-    private val repository: MainRepository = MainRepository(application)
 
 
     fun getPostIts() {
         viewModelScope.launch {
             val postList = repository.getPostIts()
-            if(postList.isNotEmpty()){
+            if (postList.isNotEmpty()) {
                 postItLiveData.postValue(postList)
-            }else{
+            } else {
                 errorLiveData.postValue(postList)
             }
         }
     }
 
+    fun deletePostIt(postTitle: String){
+        viewModelScope.launch {
+            val success = repository.deletePostIt(postTitle)
+            if (success > 0)
+                getPostIts()
+        }
+    }
 
 }

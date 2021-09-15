@@ -1,9 +1,11 @@
 package com.lfelipe.todolist.repository
 
 import android.content.Context
+import android.database.sqlite.SQLiteConstraintException
 import com.lfelipe.todolist.database.PostItDatabase
 import com.lfelipe.todolist.model.PostIt
 import java.lang.Exception
+import java.sql.SQLException
 
 class MainRepository(context: Context) {
 
@@ -29,8 +31,21 @@ class MainRepository(context: Context) {
 
     }
 
-    suspend fun insertPostIt(postIt: PostIt){
-        database.DAO().insertPostIt(postIt)
+    suspend fun insertPostIt(postIt: PostIt) : Long{
+        return try {
+            database.DAO().insertPostIt(postIt)
+
+        }catch (ex: SQLException) {
+            return 0
+        }catch (ex : SQLiteConstraintException){
+            return 0
+        }
+
+    }
+
+
+    suspend fun deletePostIt(postTitle: String) : Int{
+        return database.DAO().deletePostIt(postTitle)
     }
 
 

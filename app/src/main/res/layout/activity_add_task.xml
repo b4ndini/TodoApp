@@ -51,7 +51,7 @@
         app:boxStrokeColor="@color/teal_700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilTitle">
+        app:layout_constraintTop_toBottomOf="@id/tilColor">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etDescription"
@@ -92,7 +92,7 @@
         android:hint="@string/dropdown_menu_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilDate"
+        app:layout_constraintTop_toBottomOf="@+id/tilTitle"
         app:startIconDrawable="@drawable/ic_baseline_color">
 
         <AutoCompleteTextView
@@ -114,7 +114,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilColor"
+        app:layout_constraintTop_toBottomOf="@id/tilDate"
         app:layout_constraintVertical_bias="0.7" />
 
 

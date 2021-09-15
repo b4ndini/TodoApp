@@ -11,11 +11,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.lfelipe.todolist.databinding.ActivityMainBinding
 import com.lfelipe.todolist.view.adapter.MainAdapter
 import com.lfelipe.todolist.viewmodel.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModel()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.getPostIts()
         setupObservers()
 
@@ -45,7 +45,9 @@ class MainActivity : AppCompatActivity() {
             list?.let{
                 binding.rvPostItList.apply{
                     layoutManager = GridLayoutManager(this@MainActivity, 2)
-                    adapter = MainAdapter(list)
+                    adapter = MainAdapter(list){
+                        viewModel.deletePostIt(it)
+                    }
                 }
             }
         }

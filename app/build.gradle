@@ -59,5 +59,8 @@ dependencies {
     //Live Data e ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
-
+    //Koin
+    implementation 'org.koin:koin-android:2.2.2'
+    implementation 'org.koin:koin-androidx-scope:2.2.2'
+    implementation 'org.koin:koin-androidx-viewmodel:2.2.2'
 }

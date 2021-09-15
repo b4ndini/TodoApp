@@ -3,38 +3,45 @@ package com.lfelipe.todolist.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import com.lfelipe.todolist.R
-import com.lfelipe.todolist.database.PostItDatabase
 import com.lfelipe.todolist.databinding.ActivityAddTaskBinding
 import com.lfelipe.todolist.model.PostIt
-import com.lfelipe.todolist.repository.MainRepository
 import com.lfelipe.todolist.viewmodel.AddTaskViewModel
-import com.lfelipe.todolist.viewmodel.MainViewModel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddTaskActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: AddTaskViewModel
+    private val viewModel: AddTaskViewModel by viewModel()
     private lateinit var binding: ActivityAddTaskBinding
-    val repository: MainRepository by lazy { MainRepository(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddTaskBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this).get(AddTaskViewModel::class.java)
-
         binding.btnSave.setOnClickListener {
             newPostIt()
         }
-
+        setObservers()
         setDropDownMenu()
 
+    }
+
+    private fun setObservers() {
+        viewModel.postItLiveData.observe(this){
+            it?.let{ msg ->
+                Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+                finish()
+            }
+        }
+
+        viewModel.errorLiveData.observe(this){
+            it?.let { errorMsg ->
+                Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun setDropDownMenu() {
@@ -90,8 +97,6 @@ class AddTaskActivity : AppCompatActivity() {
 
     private fun insertPostIt(post: PostIt) {
         viewModel.insertPostIt(post)
-        Toast.makeText(this, "Post-it adicionado com sucesso", Toast.LENGTH_LONG).show()
-        finish()
     }
 
 }

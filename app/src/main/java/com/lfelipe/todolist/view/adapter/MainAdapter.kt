@@ -8,7 +8,8 @@ import com.lfelipe.todolist.databinding.TodoItemBinding
 import com.lfelipe.todolist.model.PostIt
 
 class MainAdapter (
-    private val list: List<PostIt>
+    private val list: List<PostIt>,
+    private val onRemoveClicked: (String) -> Unit
 ) : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
 
@@ -20,7 +21,7 @@ class MainAdapter (
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(list[position], onRemoveClicked)
     }
 
     override fun getItemCount(): Int {
@@ -30,7 +31,7 @@ class MainAdapter (
     class ViewHolder(private val binding: TodoItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bind(postit: PostIt) = with(itemView) {
+        fun bind(postit: PostIt, onRemoveClicked: (String) -> Unit) = with(itemView) {
             binding.apply{
                 tvTitle.text = postit.title
                 tvDescription.text = postit.desc
@@ -41,7 +42,11 @@ class MainAdapter (
                         tvTitle.setTextColor(Color.parseColor("#FFFFFF"))
                         tvDescription.setTextColor(Color.parseColor("#FFFFFF"))
                         tvDate.setTextColor(Color.parseColor("#FFFFFF"))
+                        ivDeletePostIt.setColorFilter(Color.parseColor("#FFFFFF"))
                     }
+                }
+                ivDeletePostIt.setOnClickListener{
+                    onRemoveClicked(postit.title)
                 }
             }
         }
